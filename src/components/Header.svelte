@@ -1,40 +1,35 @@
 <script lang="ts">
-	let transition = false;
-	const YAAVExpand = (node: HTMLElement, { speed = 1000 }) => {
-		const valid = node.childNodes.length === 1 && node.childNodes[0].nodeType === Node.TEXT_NODE;
+	import { tweened } from 'svelte/motion';
+	import { quadIn } from 'svelte/easing';
 
-		if (!valid) {
-			throw new Error(`This transition only works on elements with a single text node child`);
-		}
-
-		const text: string = node.textContent ?? '';
-		const yet = 'Yet';
-		const another = 'Another';
-		const algorithm = 'Algorithm';
-		const visualizer = 'Visualizer';
-
-		return {
-			duration: 2000,
-			tick: (t: number) => {
-				const i = Math.trunc(yet.length * t);
-				const j = Math.trunc(another.length * t);
-				const k = Math.trunc(algorithm.length * t);
-				const l = Math.trunc(visualizer.length * t);
-				node.textContent = `${yet.slice(0, i)} ${another.slice(0, j)} ${algorithm.slice(
-					0,
-					k
-				)} ${visualizer.slice(0, l)}`;
-			}
-		};
+	let i = 0;
+	const progress = tweened(0, {
+		duration: 600,
+		easing: quadIn
+	});
+	const words = {
+		yet: 'et ',
+		another: 'nother ',
+		algorithm: 'lgorithm ',
+		visualizer: 'isualizer'
 	};
 </script>
 
 <nav>
-	{#if transition}
-		<h1>
-			<a href="/" transition:YAAVExpand>YAAV</a>
-		</h1>
-	{/if}
+	<h1 on:mouseenter={() => progress.set(1)} on:mouseleave={() => progress.set(0)}>
+		<a href="/"
+			>{`Y${words.yet.substring(
+				0,
+				Math.trunc(words.yet.length * $progress)
+			)}A${words.another.substring(
+				0,
+				Math.trunc(words.another.length * $progress)
+			)}A${words.algorithm.substring(
+				0,
+				Math.trunc(words.algorithm.length * $progress)
+			)}V${words.visualizer.substring(0, Math.trunc(words.visualizer.length * $progress))}`}</a
+		>
+	</h1>
 
 	<ul>
 		<li>
@@ -54,5 +49,3 @@
 		</li>
 	</ul>
 </nav>
-
-<button on:click={() => (transition = !transition)}>Click</button>
