@@ -1,1 +1,5 @@
-<h1>Welcome to linear</h1>
+<script>
+	import Header from '../../components/Header.svelte';
+</script>
+
+<Header currentLocation="linear" />
