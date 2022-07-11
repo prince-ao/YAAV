@@ -79,6 +79,19 @@
 				text-decoration: none;
 				color: black;
 				font-size: 20px;
+
+				&::after {
+					content: '';
+					display: block;
+					width: 0;
+					height: 2.5px;
+					background: #000;
+					transition: width 0.3s;
+				}
+				&:hover::after {
+					width: 100%;
+					transition: width 0.3s;
+				}
 			}
 			a.active-yellow {
 				color: rgb(170, 170, 0);
