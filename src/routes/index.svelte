@@ -9,7 +9,9 @@
 	<img src={yaavlogo} alt="YAAV Logo" />
 	<h1>An Algorithm Visulaizer</h1>
 	<p>Built with Svelte</p>
-	<button>Get Started</button>
+	<a href="/linear">
+		<p>Get Started</p>
+	</a>
 </div>
 
 <style lang="scss">
@@ -28,10 +30,31 @@
 		h1 {
 			font-size: 50px;
 			font-family: 'Varela Round';
+			margin-top: 20px;
 		}
 
 		p {
 			font-family: 'Varela Round';
+		}
+
+		a {
+			margin-top: 30px;
+			text-decoration: none;
+			color: white;
+			background-color: rgba(52, 157, 255, 0.637);
+			border-radius: 100px;
+			width: 300px;
+			height: 75px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			&:hover {
+				background-color: rgb(52, 157, 255);
+			}
+			p {
+				font-family: 'Varela Round';
+				font-size: 25px;
+			}
 		}
 	}
 </style>
