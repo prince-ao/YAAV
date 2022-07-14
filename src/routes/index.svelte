@@ -8,7 +8,8 @@
 <div>
 	<img src={yaavlogo} alt="YAAV Logo" />
 	<h1>An Algorithm Visulaizer</h1>
-	<p>Built with Svelte</p>
+	<p>Built with Svelte.</p>
+	<p>⚠️ No mobile support yet.</p>
 	<a href="/linear">
 		<p>Get Started</p>
 	</a>
