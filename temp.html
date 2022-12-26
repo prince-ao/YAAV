@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			.cell {
+				width: 30px;
+				height: 30px;
+				border: 1px solid black;
+			}
+		</style>
+	</head>
+	<body>
+		<table id="grid">
+			<tbody>
+				<tr>
+					<td class="cell"></td>
+					<td class="cell"></td>
+					<td class="cell"></td>
+					<td class="cell"></td>
+					<td class="cell"></td>
+				</tr>
+				<tr>
+					<td class="cell"></td>
+					<td class="cell"></td>
+					<td class="cell"></td>
+					<td class="cell"></td>
+					<td class="cell"></td>
+				</tr>
+				<tr>
+					<td class="cell"></td>
+					<td class="cell"></td>
+					<td class="cell"></td>
+					<td class="cell"></td>
+					<td class="cell"></td>
+				</tr>
+				<tr>
+					<td class="cell"></td>
+					<td class="cell"></td>
+					<td class="cell"></td>
+					<td class="cell"></td>
+					<td class="cell"></td>
+				</tr>
+				<tr>
+					<td class="cell"></td>
+					<td class="cell"></td>
+					<td class="cell"></td>
+					<td class="cell"></td>
+					<td class="cell"></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<script>
+			const rows = 5;
+			const cols = 5;
+			const cells = document.querySelectorAll('.cell');
+
+			let delay = 1000;
+			let isPaused = false;
+
+			function dfs(i, j) {
+				const stack = [[i, j]];
+				function loop() {
+					if (stack.length === 0) return;
+					const [i, j] = stack.pop();
+					if (i < 0 || i >= rows || j < 0 || j >= cols) return;
+					const idx = i * cols + j;
+					if (cells[idx].style.backgroundColor === 'yellow') return;
+					cells[idx].style.backgroundColor = 'yellow';
+					stack.push([i - 1, j]);
+					stack.push([i + 1, j]);
+					stack.push([i, j - 1]);
+					stack.push([i, j + 1]);
+					setTimeout(loop, delay);
+				}
+				loop();
+			}
+			function pause() {
+				isPaused = true;
+			}
+
+			function resume() {
+				isPaused = false;
+				dfs(0, 0);
+			}
+
+			function faster() {
+				delay = Math.max(delay - 1000, 0);
+			}
+
+			function slower() {
+				delay += 1000;
+			}
+
+			document.addEventListener('keydown', (event) => {
+				if (event.code === 'Space') {
+					pause();
+				} else if (event.code === 'ArrowUp') {
+					faster();
+				} else if (event.code === 'ArrowDown') {
+					slower();
+				}
+			});
+
+			document.addEventListener('keyup', (event) => {
+				if (event.code === 'Space') {
+					resume();
+				}
+			});
+		</script>
+	</body>
+</html>
